@@ -1,0 +1,22 @@
+{
+  "name": "langing-page-api",
+  "version": "1.0.0",
+  "description": "API for the landing page. Its built on Node.js and Express.js with Typescript!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buildwithuk/landing-page.git"
+  },
+  "author": "Umair Khan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/buildwithuk/landing-page/issues"
+  },
+  "homepage": "https://github.com/buildwithuk/landing-page#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
