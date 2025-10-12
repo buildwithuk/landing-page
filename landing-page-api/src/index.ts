@@ -1,17 +1,15 @@
 import "reflect-metadata";
-import express, {Request, Response, Express} from "express";
+import { addRoutes } from "./config/app-routes";
+import express from "express";
+
 
 const PORT = 5000;
 const app = express();
 
-app.get("/", (req: Request, res: Response) => {
-	
-	res.send("App loaded");
+// Add the routes to the application
+addRoutes(app);
 
-});
-
-
-app.listen(PORT, ()=> {
+app.listen(PORT, () => {
 
 	console.log(`Landing API listening at ${PORT}`);
 });

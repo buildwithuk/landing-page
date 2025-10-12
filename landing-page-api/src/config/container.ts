@@ -1,6 +1,16 @@
 import { Container } from "inversify";
-import { Feedback } from "../repositories/feedback";
+import { FeedbackRouter } from "../feature/feedback/feedback-router";
+import { FeedbackService } from "../feature/feedback/feedback-service";
+import { CurrentEnvironmentRouter } from "../feature/current-env/current-env-router";
+import { CurrentEnvironmentService } from "../feature/current-env/current-env-service";
+
 
 export const container: Container = new Container();
 
-container.bind(Feedback).toSelf(); // Transient scope
+// Feedback items
+container.bind(FeedbackRouter).toSelf().inTransientScope(); // Transient scope
+container.bind(FeedbackService).toSelf().inTransientScope(); // Transient scope
+
+// Current Environment items
+container.bind(CurrentEnvironmentRouter).toSelf().inTransientScope();
+container.bind(CurrentEnvironmentService).toSelf().inTransientScope();
