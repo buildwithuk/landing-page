@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import express, {Request, Response, Express} from "express";
 
 const PORT = 5000;
