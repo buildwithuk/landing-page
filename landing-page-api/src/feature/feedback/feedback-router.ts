@@ -1,6 +1,7 @@
 import { injectable, inject } from "inversify";
 import { Router, Request, Response } from "express";
 import { FeedbackService } from "./feedback-service";
+import { IFeedback } from "./feedback-interface";
 
 @injectable()
 export class FeedbackRouter {
@@ -14,17 +15,18 @@ export class FeedbackRouter {
 
     private initializeRoutes() {
 
-        this.router.get("/", (req: Request, res: Response) => {
+        this.router.get("/", async (req: Request, res: Response) => {
 
-            const feedbacks = this.feedbackService.GetAllFeedbacks();
+            const feedbacks = await this.feedbackService.GetAllFeedbacks();
             res.status(200).json(feedbacks)
 
         });
 
-        this.router.post("/", (req: Request, res: Response) => {
+        this.router.post("/", async (req: Request<{}, {}, IFeedback>, res: Response) => {
 
-            const returnMessage = this.feedbackService.PostFeedback(req.body());
-            res.status(200).json({ returnMessage });
+            console.log(req.body);
+            const result = await this.feedbackService.PostFeedback(req.body);
+            res.status(200).json({ result });
 
         });
     }

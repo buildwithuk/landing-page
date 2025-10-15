@@ -1,20 +1,19 @@
 import { injectable } from "inversify";
+import { Feedback } from "./feedback-schema";
+import { IFeedback } from "./feedback-interface";
+
 
 @injectable()
 export class FeedbackService {
 
-    public GetAllFeedbacks() {
-        return [
-            { name: "Feedback1", rating: 5 },
-            { name: "Feedback1", rating: 5 },
-            { name: "Feedback1", rating: 5 },
-        ]
+    public async GetAllFeedbacks() {
+        
+        return await Feedback.find();
     }
 
-    public PostFeedback(requestBody: any) : string {
+    public async PostFeedback(feedback: IFeedback): Promise<IFeedback> {
 
-        return "Feedback inserted successfully";
-
+        return await (new Feedback(feedback)).save();
     }
 
 }

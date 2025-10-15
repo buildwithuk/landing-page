@@ -1,15 +1,46 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import "reflect-metadata";
 import { addRoutes } from "./config/app-routes";
 import express from "express";
+import mongoose from 'mongoose';
 
-
-const PORT = 5000;
+const PORT = process.env.PORT;
 const app = express();
+
+// Parse the json passed as rou
+app.use(express.json()); 
 
 // Add the routes to the application
 addRoutes(app);
 
-app.listen(PORT, () => {
+async function bootstrap() {
+	try {
 
-	console.log(`Landing API listening at ${PORT}`);
-});
+		if (!process.env.DATABASE_URL) {
+			throw new Error("Cannot read the environment variable for database url")
+			process.exit(1);
+		}
+		if (!process.env.DATABASE_NAME) {
+			throw new Error("Cannot read the environment variable for database name")
+			process.exit(1);
+		}
+
+		await mongoose.connect(
+			process.env.DATABASE_URL, {
+			dbName: process.env.DATABASE_NAME
+		});
+
+		console.log("Connection established with mongodb")
+		app.listen(PORT, () => {
+
+			console.log(`Landing API listening at ${PORT}`);
+		});
+
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+bootstrap();
