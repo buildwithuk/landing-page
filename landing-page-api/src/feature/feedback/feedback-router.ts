@@ -2,6 +2,8 @@ import { injectable, inject } from "inversify";
 import { Router, Request, Response } from "express";
 import { FeedbackService } from "./feedback-service";
 import { IFeedback } from "./feedback-interface";
+import { StatusCodes } from "http-status-codes";
+
 
 @injectable()
 export class FeedbackRouter {
@@ -16,17 +18,25 @@ export class FeedbackRouter {
     private initializeRoutes() {
 
         this.router.get("/", async (req: Request, res: Response) => {
+            try {
+                const feedbacks = await this.feedbackService.GetAllFeedbacks();
+                res.status(StatusCodes.OK).json(feedbacks)
+            } catch (error) {
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Something mysterious happened!" })
+            }
 
-            const feedbacks = await this.feedbackService.GetAllFeedbacks();
-            res.status(200).json(feedbacks)
 
         });
 
         this.router.post("/", async (req: Request<{}, {}, IFeedback>, res: Response) => {
 
-            console.log(req.body);
-            const result = await this.feedbackService.PostFeedback(req.body);
-            res.status(200).json({ result });
+            try {
+                const result = await this.feedbackService.PostFeedback(req.body);
+                res.status(200).json({ result });
+            } catch (error) {
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Something mysterious happened!" })
+            }
+
 
         });
     }
