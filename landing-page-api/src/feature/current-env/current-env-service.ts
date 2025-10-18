@@ -9,6 +9,10 @@ export class CurrentEnvironmentService {
         return `The current environment with ${longitude} and ${latitude}`;
     }
 
+    public ReceiveVisitor() : number {
+        // Do something here
+        return 1;
+    }
 
 
 }

@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { injectable, inject } from "inversify";
 import { CurrentEnvironmentService } from "./current-env-service";
+import { StatusCodes } from "http-status-codes";
 
 @injectable()
 export class CurrentEnvironmentRouter {
@@ -21,7 +22,7 @@ export class CurrentEnvironmentRouter {
             const latitude: number = Number(req.params.latitude);
 
             const returnService = this.currentEnviornmentService.GetCurrentEnvironment(longitude, latitude);
-            res.status(200).json(returnService);
+            res.status(StatusCodes.OK).json(returnService);
         });
     }
 

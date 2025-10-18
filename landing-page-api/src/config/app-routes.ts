@@ -4,16 +4,21 @@ import { FeedbackRouter } from "../feature/feedback/feedback-router";
 import { CurrentEnvironmentRouter } from "../feature/current-env/current-env-router";
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import { VisitorRouter } from "../feature/visitor/visitor-router";
 
 
 export function addRoutes(app: Application): Application {
 
     const feedbackRouter = container.get<FeedbackRouter>(FeedbackRouter);
     const currentEnvRouter = container.get<CurrentEnvironmentRouter>(CurrentEnvironmentRouter);
+    const visitorRouter = container.get<VisitorRouter>(VisitorRouter);
 
     app.use("/feedback", feedbackRouter.router);
     app.use("/current-env", currentEnvRouter.router);
-    app.use("/", (req:Request, res:Response) => {
+    app.use("/visitor", visitorRouter.router);
+
+    
+    app.use("/", (req: Request, res: Response) => {
 
         res.status(StatusCodes.OK).send("Hello World")
     })

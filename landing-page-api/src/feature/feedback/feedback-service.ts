@@ -7,6 +7,8 @@ import { IFeedback } from "./feedback-interface";
 export class FeedbackService {
 
     public async GetAllFeedbacks() {
+
+        console.log(await Feedback.find())
         
         return await Feedback.find();
     }
