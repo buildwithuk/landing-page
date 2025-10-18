@@ -1,18 +1,14 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
+import { WeatherService } from "../weather-api/weather-api-service";
+import { IWeatherAPIResponse } from "../weather-api/weather-api-schema";
 
 
 @injectable()
 export class CurrentEnvironmentService {
 
-    public GetCurrentEnvironment(longitude: number, latitude: number) : string {
+    constructor(@inject(WeatherService) private weatherService: WeatherService) { }
 
-        return `The current environment with ${longitude} and ${latitude}`;
+    public async GetCurrentEnvironment(longitude: number, latitude: number): Promise<IWeatherAPIResponse> {
+        return await this.weatherService.getWeather(longitude, latitude);
     }
-
-    public ReceiveVisitor() : number {
-        // Do something here
-        return 1;
-    }
-
-
 }

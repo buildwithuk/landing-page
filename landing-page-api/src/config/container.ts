@@ -5,6 +5,7 @@ import { CurrentEnvironmentRouter } from "../feature/current-env/current-env-rou
 import { CurrentEnvironmentService } from "../feature/current-env/current-env-service";
 import { VisitorService } from "../feature/visitor/visitor-service";
 import { VisitorRouter } from "../feature/visitor/visitor-router";
+import { WeatherService } from "../feature/weather-api/weather-api-service";
 
 
 export const container: Container = new Container();
@@ -20,3 +21,6 @@ container.bind(CurrentEnvironmentService).toSelf().inTransientScope();
 // Visitor items
 container.bind(VisitorService).toSelf().inTransientScope();
 container.bind(VisitorRouter).toSelf().inTransientScope();
+
+// Weather Api
+container.bind(WeatherService).toSelf().inTransientScope();
