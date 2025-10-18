@@ -11,13 +11,13 @@ export class VisitorService {
 
         let documents = await Visitors.find();
 
-        console.log("Result of documents: " + documents.length)
-
         if (documents && documents.length == 1) {
 
             let document = documents[0];
 
             document!.visitorsReceived++;
+            document!.lastVisited = new Date();
+
             return (await document!.save()).visitorsReceived;
 
         } else if (documents.length == 0) {

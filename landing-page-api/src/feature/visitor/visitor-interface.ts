@@ -1,5 +1,6 @@
 export interface IVisitors {
 
-    visitorsReceived: number
+    visitorsReceived: number,
+    lastVisited: Date
 
 }

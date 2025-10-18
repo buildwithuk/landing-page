@@ -6,6 +6,11 @@ const visitorsSchema: Schema<IVisitors> = new Schema({
     visitorsReceived: {
         type: Number,
         required: true
+    }, 
+    lastVisited: {
+        type: Date, 
+        required: true, 
+        default: Date.now()
     }
 });
 
