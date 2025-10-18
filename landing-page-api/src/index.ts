@@ -5,11 +5,13 @@ import "reflect-metadata";
 import { addRoutes } from "./config/app-routes";
 import express from "express";
 import mongoose from 'mongoose';
+import { formatAPIResponse } from "./middleware/response-formatter";
 
 const PORT = process.env.PORT;
 const app = express();
 
-// Parse the json passed as rou
+// Parse the json passed as routes
+app.use(formatAPIResponse)
 app.use(express.json()); 
 
 // Add the routes to the application
