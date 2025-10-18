@@ -1,4 +1,5 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import ExternalService from "../../services/external-service";
 
 function ContentComponent() {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
@@ -17,12 +18,15 @@ function ContentComponent() {
     }
 
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      async (position) => {
         const { latitude, longitude } = position.coords;
         setLocation({ lat: latitude, lon: longitude });
+
+        await ExternalService.GetCurrentEnvironmnet(latitude, longitude);
       },
       (err) => {
         // Dom something here
+        console.log(err);
       }
     );
   };
