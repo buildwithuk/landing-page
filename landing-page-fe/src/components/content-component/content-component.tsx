@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import ExternalService from "../../services/external-service";
+import type { ICurrentEnv } from "../../interfaces/current-env";
 
 function ContentComponent() {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
     null
   );
+
+  const [currentEnv, setCurrentEnv] = useState<ICurrentEnv>();
 
   // 👇 Automatically call on load
   useEffect(() => {
@@ -22,7 +25,9 @@ function ContentComponent() {
         const { latitude, longitude } = position.coords;
         setLocation({ lat: latitude, lon: longitude });
 
-        await ExternalService.GetCurrentEnvironmnet(latitude, longitude);
+        const currentEnv: ICurrentEnv =
+          await ExternalService.GetCurrentEnvironmnet(longitude, latitude);
+        setCurrentEnv(currentEnv);
       },
       (err) => {
         // Dom something here

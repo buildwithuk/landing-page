@@ -8,7 +8,6 @@ class ExternalService {
     public static async GetCurrentEnvironmnet(longitude: number, latitude: number): Promise<ICurrentEnv> {
 
         const url: string = `https://landing-page-production-db37.up.railway.app/current-env/${longitude}/${latitude}`;
-
         const response: ICurrentEnv = await this._SendGetRequest<ICurrentEnv>(url);
 
         return response;
@@ -22,11 +21,9 @@ class ExternalService {
         if (response.ok) {
 
             let apiResponse: IApiResponse = await response.json();
-
             let currentEnvData = apiResponse.data as T;
 
             return currentEnvData;
-
 
         } else {
             throw new Error("Some error occured");
