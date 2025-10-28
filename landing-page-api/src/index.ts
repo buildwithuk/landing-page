@@ -6,9 +6,13 @@ import { addRoutes } from "./config/app-routes";
 import express from "express";
 import mongoose from 'mongoose';
 import { formatAPIResponse } from "./middleware/response-formatter";
+import cors from "cors";
 
 const PORT = process.env.PORT;
 const app = express();
+
+// allows the cors
+app.use(cors())
 
 // Parse the json passed as routes
 app.use(formatAPIResponse)
