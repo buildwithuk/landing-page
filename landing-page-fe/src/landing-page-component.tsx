@@ -29,9 +29,8 @@ export const LandingPageComponent: FC = (): ReactElement => {
         setLocation({ lat: latitude, lon: longitude });
 
         const currentEnv: ICurrentEnv =
-          await ExternalService.GetCurrentEnvironmnet(longitude, latitude);
+          await ExternalService.GetCurrentEnvironmnet(latitude,longitude);
         setCurrentEnv(currentEnv);
-        console.log(currentEnv);
       },
       (err) => {
         // Dom something here
@@ -43,8 +42,19 @@ export const LandingPageComponent: FC = (): ReactElement => {
   return (
     <>
       <div className="p-2 flex flex-col min-h-screen">
-        <header >
-          <HeaderComponent></HeaderComponent>
+        <header>
+          <HeaderComponent
+            env={{
+              condition: currentEnv?.condition!,
+              country: currentEnv?.country!,
+              isDay: currentEnv?.isDay!,
+              name: currentEnv?.name!,
+              region: currentEnv?.region!,
+              temperatureInC: currentEnv?.temperatureInC!,
+              temperatureInF: currentEnv?.temperatureInF!,
+              icon: currentEnv?.icon!
+            }}
+          ></HeaderComponent>
         </header>
 
         <section className="flex-1 mt-2 bg-gray-50">
