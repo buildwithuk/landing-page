@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import ContentComponent from "./components/content-component/content-component";
-import FooterComponent from "./components/footer-component/footer-compose";
-import HeaderComponent from "./components/header-component/header-component";
+import { useEffect, useState, type ReactElement, type FC } from "react";
+import { ContentComponent } from "./components/content-component/content-component";
+import { FooterComponent } from "./components/footer-component/footer-compose";
+import { HeaderComponent } from "./components/header-component/header-component";
 import type { ICurrentEnv } from "./interfaces/current-env";
 import ExternalService from "./services/external-service";
 
-function LandingPageComponent() {
+export const LandingPageComponent: FC = (): ReactElement => {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
     null
   );
@@ -42,20 +42,18 @@ function LandingPageComponent() {
 
   return (
     <>
-      <div>
-        <p>{currentEnv && JSON.stringify(currentEnv)}</p>
-        <div>
+      <div className="p-2 flex flex-col min-h-screen">
+        <header >
           <HeaderComponent></HeaderComponent>
-        </div>
-        <div>
+        </header>
+
+        <section className="flex-1 mt-2 bg-gray-50">
           <ContentComponent></ContentComponent>
-        </div>
-        <div>
+        </section>
+        <footer>
           <FooterComponent></FooterComponent>
-        </div>
+        </footer>
       </div>
     </>
   );
-}
-
-export default LandingPageComponent;
+};

@@ -1,9 +1,12 @@
-function ContentComponent() {
+import type { FC, ReactElement } from "react";
+
+export const ContentComponent : FC = () : ReactElement => {
   return (
     <div>
-      <h1> Content component </h1>
+       <p className="font-semibold text-muted-foreground text-xl">
+      A modal dialog that interrupts the user with important content and expects
+      a response.
+    </p>
     </div>
   );
 }
-
-export default ContentComponent;
