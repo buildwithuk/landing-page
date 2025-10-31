@@ -41,7 +41,7 @@ export const LandingPageComponent: FC = (): ReactElement => {
 
   return (
     <>
-      <div className="p-2 flex flex-col min-h-screen bg-[url(./assets/clouds-161581_1920.png)]" >
+      <div className="p-2 flex flex-col min-h-screen landing-page-light-bg" >
         <header>
           <HeaderComponent
             env={{
