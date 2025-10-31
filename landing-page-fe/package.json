@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "serve": "serve -s dist",
     "watch": "tsc -b --watch & vite",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -24,6 +25,7 @@
     "postcss": "^8.5.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "serve": "^14.2.5",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.16"
   },
