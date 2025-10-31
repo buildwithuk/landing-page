@@ -41,7 +41,7 @@ export const LandingPageComponent: FC = (): ReactElement => {
 
   return (
     <>
-      <div className="p-2 flex flex-col min-h-screen">
+      <div className="p-2 flex flex-col min-h-screen landing-page-light-bg" >
         <header>
           <HeaderComponent
             env={{
@@ -57,9 +57,7 @@ export const LandingPageComponent: FC = (): ReactElement => {
           ></HeaderComponent>
         </header>
 
-        <section className="flex-1 mt-2 bg-gray-50">
           <ContentComponent></ContentComponent>
-        </section>
         <footer>
           <FooterComponent></FooterComponent>
         </footer>

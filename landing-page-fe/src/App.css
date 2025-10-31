@@ -118,3 +118,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+.landing-page-light-bg {
+  background-image: url("./assets/clouds-161581_1920.png");
+  
+  background-size: cover;
+}

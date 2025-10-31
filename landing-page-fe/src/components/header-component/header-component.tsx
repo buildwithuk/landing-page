@@ -10,7 +10,7 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
   const currentTheme = "light";
 
   const getName = (): string => {
-    console.log(env.condition)
+    
     let name = ""
     if (env){
       if (env.name) {
