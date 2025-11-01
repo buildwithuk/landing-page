@@ -25,7 +25,7 @@ export class VisitorService {
             await Visitors.insertOne({ visitorsReceived: 1 });
             return 1;
         } else {
-            throw new Error("I have messaged up!");
+            throw new Error("I have messed up!");
         }
     }
 

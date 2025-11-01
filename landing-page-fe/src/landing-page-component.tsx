@@ -4,6 +4,7 @@ import { FooterComponent } from "./components/footer-component/footer-compose";
 import { HeaderComponent } from "./components/header-component/header-component";
 import type { ICurrentEnv } from "./interfaces/current-env";
 import ExternalService from "./services/external-service";
+import type { ReceiveVisitors } from "./interfaces/receive-visitors";
 
 export const LandingPageComponent: FC = (): ReactElement => {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
@@ -12,10 +13,16 @@ export const LandingPageComponent: FC = (): ReactElement => {
 
   const [currentEnv, setCurrentEnv] = useState<ICurrentEnv>();
 
-  // 👇 Automatically call on load
   useEffect(() => {
+    receiveVisitor();
     getLocation();
+    
   }, []);
+
+  const receiveVisitor = async () => {
+    const response = await ExternalService.ReceiveVisitor<ReceiveVisitors>();
+    console.log(response)
+  }
 
   const getLocation = () => {
     if (!navigator.geolocation) {
