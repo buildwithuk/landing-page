@@ -5,6 +5,12 @@ import { HeaderComponent } from "./components/header-component/header-component"
 import type { ICurrentEnv } from "./interfaces/current-env";
 import ExternalService from "./services/external-service";
 import type { ReceiveVisitors } from "./interfaces/receive-visitors";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "./components/ui/card";
 
 export const LandingPageComponent: FC = (): ReactElement => {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
@@ -12,17 +18,17 @@ export const LandingPageComponent: FC = (): ReactElement => {
   );
 
   const [currentEnv, setCurrentEnv] = useState<ICurrentEnv>();
+  const [visitors, setVisitors] = useState<number>();
 
   useEffect(() => {
     receiveVisitor();
     getLocation();
-    
   }, []);
 
   const receiveVisitor = async () => {
     const response = await ExternalService.ReceiveVisitor<ReceiveVisitors>();
-    console.log(response)
-  }
+    setVisitors(response.visitors);
+  };
 
   const getLocation = () => {
     if (!navigator.geolocation) {
@@ -36,7 +42,7 @@ export const LandingPageComponent: FC = (): ReactElement => {
         setLocation({ lat: latitude, lon: longitude });
 
         const currentEnv: ICurrentEnv =
-          await ExternalService.GetCurrentEnvironmnet(latitude,longitude);
+          await ExternalService.GetCurrentEnvironmnet(latitude, longitude);
         setCurrentEnv(currentEnv);
       },
       (err) => {
@@ -48,7 +54,32 @@ export const LandingPageComponent: FC = (): ReactElement => {
 
   return (
     <>
-      <div className="p-2 flex flex-col min-h-screen landing-page-light-bg" >
+      <div className="h-screen w-screen landing-page-light-bg flex justify-center items-center flex-column">
+        <Card className="w-6xl justify-center opacity-70">
+          <CardHeader>
+            <HeaderComponent
+              env={{
+                condition: currentEnv?.condition!,
+                country: currentEnv?.country!,
+                isDay: currentEnv?.isDay!,
+                name: currentEnv?.name!,
+                region: currentEnv?.region!,
+                temperatureInC: currentEnv?.temperatureInC!,
+                temperatureInF: currentEnv?.temperatureInF!,
+                icon: currentEnv?.icon!,
+              }}
+            />
+          </CardHeader>
+
+          <CardContent>
+            {visitors && <ContentComponent visitors = {visitors}></ContentComponent>}
+          </CardContent>
+          <CardFooter className="flex-col gap-2">
+            <FooterComponent></FooterComponent>
+          </CardFooter>
+        </Card>
+      </div>
+      {/**<div className="p-2 flex flex-col min-h-screen landing-page-light-bg" >
         <header>
           <HeaderComponent
             env={{
@@ -68,7 +99,7 @@ export const LandingPageComponent: FC = (): ReactElement => {
         <footer>
           <FooterComponent></FooterComponent>
         </footer>
-      </div>
+      </div> **/}
     </>
   );
 };

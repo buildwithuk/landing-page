@@ -1,3 +1,3 @@
 export interface ReceiveVisitors {
-    visitors: string
+    visitors: number
 }

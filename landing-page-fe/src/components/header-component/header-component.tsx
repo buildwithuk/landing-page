@@ -32,7 +32,7 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
   };
 
   return (
-    <div className="flex flex-row">
+    <div className="text-emerald-700 flex flex-row px-10 ">
       <div className="flex flex-row basis-2/3 content-center items-center">
         <div>
             {env.condition?.toLowerCase().includes("light rain") && <CloudRain />}
@@ -52,7 +52,7 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
           </h4>
         </div>
       </div>
-      <div className="content-around flex flex-row-reverse basis-1/3 mr-5  content-center items-center">
+      <div className="content-around flex flex-row-reverse basis-1/3  content-center items-center">
         <ThemeToggleButton
           theme={currentTheme}
           onClick={handleThemeToggle}

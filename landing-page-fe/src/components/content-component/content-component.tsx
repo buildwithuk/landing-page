@@ -1,13 +1,23 @@
-import type { FC, ReactElement } from "react";
+import { useEffect, useState, type FC, type ReactElement } from "react";
+import { CountingNumber } from "../ui/shadcn-io/counting-number";
 
-export const ContentComponent: FC = (): ReactElement => {
+export const ContentComponent: FC<any> = ( {visitors} ): ReactElement => {
+
   return (
-    <div className="flex-1 mt-2 flex-row h-100 content-center place-content-center">
-      <div className=" font-semibold text-muted-foreground text-xl text-center">
-        <p>
-          A modal dialog that interrupts the user with important content and
-          expects a response.
-        </p>
+    <div className="antialiased flex-1 flex-row h-100 content-center place-content-center">
+      <div className=" font-semibold text-muted-foreground  text-center">
+        {visitors && (
+          <>
+            <h5 className="mb-10">Visited by happy people</h5>
+            
+            <CountingNumber
+              className="text-9xl"
+              number={visitors!}
+              inView={true}
+              transition={{ stiffness: 100, damping: 30 }}
+            />
+          </>
+        )}
       </div>
     </div>
   );
