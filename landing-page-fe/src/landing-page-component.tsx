@@ -11,6 +11,7 @@ import {
   CardFooter,
   CardHeader,
 } from "./components/ui/card";
+import { Skeleton } from "./components/ui/skeleton";
 
 export const LandingPageComponent: FC = (): ReactElement => {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
@@ -54,52 +55,37 @@ export const LandingPageComponent: FC = (): ReactElement => {
 
   return (
     <>
-      <div className="h-screen w-screen landing-page-light-bg flex justify-center items-center flex-column">
+      <div className="tracking-wider h-screen w-screen landing-page-light-bg flex justify-center items-center flex-column">
         <Card className="w-6xl justify-center opacity-70">
           <CardHeader>
-            <HeaderComponent
-              env={{
-                condition: currentEnv?.condition!,
-                country: currentEnv?.country!,
-                isDay: currentEnv?.isDay!,
-                name: currentEnv?.name!,
-                region: currentEnv?.region!,
-                temperatureInC: currentEnv?.temperatureInC!,
-                temperatureInF: currentEnv?.temperatureInF!,
-                icon: currentEnv?.icon!,
-              }}
-            />
+            {!currentEnv && <Skeleton className="w-auto" />}
+            {currentEnv && (
+              <HeaderComponent
+                env={{
+                  condition: currentEnv?.condition!,
+                  country: currentEnv?.country!,
+                  isDay: currentEnv?.isDay!,
+                  name: currentEnv?.name!,
+                  region: currentEnv?.region!,
+                  temperatureInC: currentEnv?.temperatureInC!,
+                  temperatureInF: currentEnv?.temperatureInF!,
+                  icon: currentEnv?.icon!,
+                }}
+              />
+            )}
           </CardHeader>
 
           <CardContent>
-            {visitors && <ContentComponent visitors = {visitors}></ContentComponent>}
+            {!visitors && <Skeleton className="h-100 w-auto" />}
+            {visitors && (
+              <ContentComponent visitors={visitors}></ContentComponent>
+            )}
           </CardContent>
           <CardFooter className="flex-col gap-2">
-            <FooterComponent></FooterComponent>
+            {visitors && currentEnv && <FooterComponent />}
           </CardFooter>
         </Card>
       </div>
-      {/**<div className="p-2 flex flex-col min-h-screen landing-page-light-bg" >
-        <header>
-          <HeaderComponent
-            env={{
-              condition: currentEnv?.condition!,
-              country: currentEnv?.country!,
-              isDay: currentEnv?.isDay!,
-              name: currentEnv?.name!,
-              region: currentEnv?.region!,
-              temperatureInC: currentEnv?.temperatureInC!,
-              temperatureInF: currentEnv?.temperatureInF!,
-              icon: currentEnv?.icon!
-            }}
-          ></HeaderComponent>
-        </header>
-
-          <ContentComponent></ContentComponent>
-        <footer>
-          <FooterComponent></FooterComponent>
-        </footer>
-      </div> **/}
     </>
   );
 };
