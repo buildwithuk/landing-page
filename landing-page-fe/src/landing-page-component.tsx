@@ -12,6 +12,7 @@ import {
   CardHeader,
 } from "./components/ui/card";
 import { Skeleton } from "./components/ui/skeleton";
+import type { IFeedbackRequest } from "./interfaces/feedback-request";
 
 export const LandingPageComponent: FC = (): ReactElement => {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
@@ -22,9 +23,15 @@ export const LandingPageComponent: FC = (): ReactElement => {
   const [visitors, setVisitors] = useState<number>();
 
   useEffect(() => {
+    sendFeedback();
     receiveVisitor();
     getLocation();
   }, []);
+
+  const sendFeedback = async () => {
+    const response = await ExternalService.SaveFeedback<IFeedbackRequest>({ createdAt: Date.now(), feedback : "You site is so cool", rating: 100 });
+    console.log(response)
+  }
 
   const receiveVisitor = async () => {
     const response = await ExternalService.ReceiveVisitor<ReceiveVisitors>();

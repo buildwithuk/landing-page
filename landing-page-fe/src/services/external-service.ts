@@ -17,6 +17,8 @@ class ExternalService {
 
     public static async SaveFeedback<T>(feedbackRequest: IFeedbackRequest): Promise<T> {
 
+        console.log(feedbackRequest)
+
         const _SaveFeedbackUrl: string = `https://landing-page-production-db37.up.railway.app/feedback`;
 
         const response = await fetch(_SaveFeedbackUrl, { method: "POST", body: JSON.stringify(feedbackRequest) });
