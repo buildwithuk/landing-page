@@ -15,6 +15,8 @@ export class FeedbackService {
 
     public async PostFeedback(feedback: IFeedback): Promise<IFeedback> {
 
+        console.log(feedback)
+
         return await (new Feedback(feedback)).save();
     }
 
