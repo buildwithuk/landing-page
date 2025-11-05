@@ -5,13 +5,13 @@ const feedbackSchema: Schema<IFeedback> = new Schema({
 
     feedback: {
         type: String,
-        required: false,
+        required: true,
         maxLength: 100,
         trim: true
     },
     rating: {
         type: Number,
-        required: false
+        required: true
     },
     createdAt: {
         type: Date,
