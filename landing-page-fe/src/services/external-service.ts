@@ -1,7 +1,6 @@
-
-import type { ReceiveVisitors } from "@/interfaces/receive-visitors";
 import type { ICurrentEnv } from "../interfaces/current-env";
 import type { IApiResponse } from "../interfaces/http-response";
+import type { IFeedbackRequest } from "@/interfaces/feedback-request";
 
 
 class ExternalService {
@@ -15,6 +14,28 @@ class ExternalService {
         return response;
 
     }
+
+    public static async SaveFeedback<T>(feedbackRequest: IFeedbackRequest): Promise<T> {
+
+        const _SaveFeedbackUrl: string = `https://landing-page-production-db37.up.railway.app/feedback`;
+
+        const response = await fetch(_SaveFeedbackUrl, { method: "POST", body: JSON.stringify(feedbackRequest) });
+
+        console.log(response)
+
+        if (response.ok) {
+
+            let apiResponse: IApiResponse = await response.json();
+            let feedbackResponse = apiResponse.data as T;
+
+            return feedbackResponse;
+
+        } else {
+            throw new Error("Some error occured");
+        }
+    }
+
+
 
     public static async ReceiveVisitor<T>(): Promise<T> {
 

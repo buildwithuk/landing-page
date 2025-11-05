@@ -1,5 +1,6 @@
-export interface FeedbackRequest {
+export interface IFeedbackRequest {
 
     feedback: string;
     rating: number;
+    createdAt: Date
 }
