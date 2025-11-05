@@ -29,7 +29,7 @@ export const LandingPageComponent: FC = (): ReactElement => {
   }, []);
 
   const sendFeedback = async () => {
-    const response = await ExternalService.SaveFeedback<IFeedbackRequest>({ createdAt: new Date(), feedback : "You site is so cool", rating: 100 });
+    const response = await ExternalService.SaveFeedback<IFeedbackRequest>({ createdAt: new Date(), feedback : "You site is so cool", rating: 3 });
     console.log(response)
   }
 
