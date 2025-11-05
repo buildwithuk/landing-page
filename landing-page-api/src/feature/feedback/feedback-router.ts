@@ -31,9 +31,11 @@ export class FeedbackRouter {
         this.router.post("/", async (req: Request<{}, {}, IFeedback>, res: Response) => {
 
             try {
+                console.log(req.body)
                 const result = await this.feedbackService.PostFeedback(req.body);
                 res.status(200).json({ result });
             } catch (error) {
+                console.log("exception: " + error)
                 res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Something mysterious happened!" })
             }
 

@@ -15,7 +15,7 @@ export class FeedbackService {
 
     public async PostFeedback(feedback: IFeedback): Promise<IFeedback> {
 
-        console.log(feedback)
+        console.log("Inside service: " +feedback)
 
         return await (new Feedback(feedback)).save();
     }

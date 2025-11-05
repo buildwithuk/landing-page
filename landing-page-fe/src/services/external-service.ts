@@ -5,6 +5,8 @@ import type { IFeedbackRequest } from "@/interfaces/feedback-request";
 
 class ExternalService {
 
+
+
     public static async GetCurrentEnvironmnet(longitude: number, latitude: number): Promise<ICurrentEnv> {
 
         const _GetCurrentEnvURL: string = `https://landing-page-production-db37.up.railway.app/current-env/${longitude}/${latitude}`;
@@ -21,7 +23,7 @@ class ExternalService {
 
         const _SaveFeedbackUrl: string = `https://landing-page-production-db37.up.railway.app/feedback`;
 
-        const response = await fetch(_SaveFeedbackUrl, { method: "POST", body: JSON.stringify(feedbackRequest) });
+        const response = await fetch(_SaveFeedbackUrl, { headers: ExternalService._GetHeaders(),  method: "POST", body: JSON.stringify(feedbackRequest) });
 
         console.log(response)
 
@@ -37,6 +39,11 @@ class ExternalService {
         }
     }
 
+    private static _GetHeaders() : HeadersInit {
+        return {
+            "Content-type": "application/json"
+        }
+    }
 
 
     public static async ReceiveVisitor<T>(): Promise<T> {

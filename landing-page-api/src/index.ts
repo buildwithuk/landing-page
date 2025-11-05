@@ -13,10 +13,11 @@ const app = express();
 
 // allows the cors
 app.use(cors())
+app.use(express.json()); 
 
 // Parse the json passed as routes
 app.use(formatAPIResponse)
-app.use(express.json()); 
+
 
 // Add the routes to the application
 addRoutes(app);
