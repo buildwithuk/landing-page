@@ -7,12 +7,10 @@ import type { IFeedbackRequest } from "@/interfaces/feedback-request";
 class ExternalService {
 
 
-    public static async GetVisitors<T>() : Promise<T> {
+    public static async GetVisitors<T>(): Promise<T> {
 
         const _GetVisitorsUrl: string = `https://landing-page-production-db37.up.railway.app/visitor`;
-
-        const response: T = await this._SendGetRequest<T>(_GetVisitorsUrl);
-
+        const response: T = await ExternalService._SendGetRequest<T>(_GetVisitorsUrl);
         return response;
     }
 
@@ -20,7 +18,7 @@ class ExternalService {
 
         const _GetCurrentEnvURL: string = `https://landing-page-production-db37.up.railway.app/current-env/${longitude}/${latitude}`;
 
-        const response: ICurrentEnv = await this._SendGetRequest<ICurrentEnv>(_GetCurrentEnvURL);
+        const response: ICurrentEnv = await ExternalService._SendGetRequest<ICurrentEnv>(_GetCurrentEnvURL);
 
         return response;
 
@@ -28,13 +26,9 @@ class ExternalService {
 
     public static async SaveFeedback<T>(feedbackRequest: IFeedbackRequest): Promise<T> {
 
-        console.log(feedbackRequest)
-
         const _SaveFeedbackUrl: string = `https://landing-page-production-db37.up.railway.app/feedback`;
 
-        const response = await fetch(_SaveFeedbackUrl, { headers: ExternalService._GetHeaders(),  method: "POST", body: JSON.stringify(feedbackRequest) });
-
-        console.log(response)
+        const response = await fetch(_SaveFeedbackUrl, { headers: ExternalService._GetHeaders(), method: "POST", body: JSON.stringify(feedbackRequest) });
 
         if (response.ok) {
 
@@ -48,7 +42,7 @@ class ExternalService {
         }
     }
 
-    private static _GetHeaders() : HeadersInit {
+    private static _GetHeaders(): HeadersInit {
         return {
             "Content-type": "application/json"
         }
@@ -60,8 +54,6 @@ class ExternalService {
         const _ReceiveVisitor: string = `https://landing-page-production-db37.up.railway.app/visitor/receive-visitor`;
 
         const response = await fetch(_ReceiveVisitor, { method: "POST" });
-
-        console.log(response)
 
         if (response.ok) {
 

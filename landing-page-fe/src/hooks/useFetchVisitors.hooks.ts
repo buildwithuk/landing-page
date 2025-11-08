@@ -3,11 +3,11 @@ import ExternalService from "@/services/external-service"
 import { useQuery } from "@tanstack/react-query"
 
 
-export const useFetchVisitors = async (params: {}) => {
+export const useFetchVisitors = (params: {}) => {
 
     return useQuery({
         queryKey: ["fetch-visitors", params],
-        queryFn: ExternalService.GetVisitors
+        queryFn: ExternalService.GetVisitors<IReceiveVisitors>
     })
 
 }

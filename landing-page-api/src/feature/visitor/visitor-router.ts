@@ -19,7 +19,7 @@ export class VisitorRouter {
         this.router.get('/', async(req: Request, res: Response) => {
 
 
-            const receivedVisitors = await this.visitorService.ReceiveVisitor();
+            const receivedVisitors = await this.visitorService.GetVisitors();
             res.status(StatusCodes.OK).json({ visitors: receivedVisitors });
 
         })

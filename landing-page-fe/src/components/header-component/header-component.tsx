@@ -1,7 +1,18 @@
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggleButton } from "@/components/ui/shadcn-io/theme-toggle-button";
 import { Toggle } from "@radix-ui/react-toggle";
-import { Cloud, CloudLightning, CloudRain, CloudRainWind, Cloudy, Snowflake, SunDim, Thermometer } from "lucide-react";
+import {
+  Cloud,
+  CloudLightning,
+  CloudRain,
+  CloudRainWind,
+  Cloudy,
+  MoonStar,
+  Snowflake,
+  Sun,
+  SunDim,
+  Thermometer,
+} from "lucide-react";
 import { type HeaderProps } from "../../props/header-component-props";
 import type { ReactElement, FC } from "react";
 
@@ -10,21 +21,19 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
   const currentTheme = "light";
 
   const getName = (): string => {
-    
-    let name = ""
-    if (env){
+    let name = "";
+    if (env) {
       if (env.name) {
-        name = env.name
-      } 
+        name = env.name;
+      }
       if (env.region) {
-        name += ", " + env.region
-      } 
+        name += ", " + env.region;
+      }
       if (env.country) {
-        name += ", " +  env.country
+        name += ", " + env.country;
       }
     }
     return name;
-    
   };
 
   const handleThemeToggle = () => {
@@ -35,15 +44,18 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
     <div className="text-emerald-700 flex flex-row px-10 ">
       <div className="flex flex-row basis-2/3 content-center items-center">
         <div>
-            {env.condition?.toLowerCase().includes("light rain") && <CloudRain />}
-            {env.condition?.toLowerCase().includes("rain") && <CloudRainWind />}
-            {env.condition?.toLowerCase().includes("snow") && <Snowflake />}
-            {env.condition?.toLowerCase().includes("mist") && <SunDim />}
-            {env.condition?.toLowerCase().includes("thund") && <CloudLightning />}
-            {env.condition?.toLowerCase().includes("partly cloudy") && <Cloud />}
-            {env.condition?.toLowerCase().includes("overcast")  && <Cloudy />}
+          {(env.condition?.toLocaleLowerCase().includes("clear") && !!env.isDay) && <Sun />}
           
-          
+          { (env.condition?.toLocaleLowerCase().includes("clear") &&
+            !env.isDay) && <MoonStar />}
+
+          {env.condition?.toLowerCase().includes("light rain") && <CloudRain />}
+          {env.condition?.toLowerCase().includes("rain") && <CloudRainWind />}
+          {env.condition?.toLowerCase().includes("snow") && <Snowflake />}
+          {env.condition?.toLowerCase().includes("mist") && <SunDim />}
+          {env.condition?.toLowerCase().includes("thund") && <CloudLightning />}
+          {env.condition?.toLowerCase().includes("partly cloudy") && <Cloud />}
+          {env.condition?.toLowerCase().includes("overcast") && <Cloudy />}
         </div>
         <Separator orientation="vertical" className="mx-3" />
         <div>

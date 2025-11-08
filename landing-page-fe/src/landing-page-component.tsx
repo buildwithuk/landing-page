@@ -16,15 +16,13 @@ import type { IFeedbackRequest } from "./interfaces/feedback-request";
 import { useFetchVisitors } from "./hooks/useFetchVisitors.hooks";
 
 export const LandingPageComponent: FC = (): ReactElement => {
-
-  const {data, isSuccess, isError} = useFetchVisitors({});
+  const { data, isSuccess, isError } = useFetchVisitors({});
 
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
     null
   );
 
   const [currentEnv, setCurrentEnv] = useState<ICurrentEnv>();
-  const [visitors, setVisitors] = useState<number>();
 
   useEffect(() => {
     sendFeedback();
@@ -33,13 +31,15 @@ export const LandingPageComponent: FC = (): ReactElement => {
   }, []);
 
   const sendFeedback = async () => {
-    const response = await ExternalService.SaveFeedback<IFeedbackRequest>({ createdAt: new Date(), feedback : "You site is so cool", rating: 3 });
-    console.log(response)
-  }
+    const response = await ExternalService.SaveFeedback<IFeedbackRequest>({
+      createdAt: new Date(),
+      feedback: "You site is so cool",
+      rating: 3,
+    });
+  };
 
   const receiveVisitor = async () => {
-    const response = await ExternalService.ReceiveVisitor<IReceiveVisitors>();
-    setVisitors(response.visitors);
+    await ExternalService.ReceiveVisitor<IReceiveVisitors>();
   };
 
   const getLocation = () => {
@@ -58,7 +58,6 @@ export const LandingPageComponent: FC = (): ReactElement => {
         setCurrentEnv(currentEnv);
       },
       (err) => {
-        // Dom something here
         console.log(err);
       }
     );
@@ -66,6 +65,7 @@ export const LandingPageComponent: FC = (): ReactElement => {
 
   return (
     <>
+    
       <div className="tracking-wider h-screen w-screen landing-page-light-bg flex justify-center items-center flex-column">
         <Card className="w-6xl justify-center opacity-70">
           <CardHeader>
@@ -87,13 +87,13 @@ export const LandingPageComponent: FC = (): ReactElement => {
           </CardHeader>
 
           <CardContent>
-            {!visitors && <Skeleton className="h-100 w-auto" />}
-            {visitors && (
-              <ContentComponent visitors={visitors}></ContentComponent>
+            {!data && <Skeleton className="h-100 w-auto" />}
+            {data && (
+              <ContentComponent visitors={data?.visitors}></ContentComponent>
             )}
           </CardContent>
           <CardFooter className="flex-col gap-2">
-            {visitors && currentEnv && <FooterComponent />}
+            {data && currentEnv && <FooterComponent />}
           </CardFooter>
         </Card>
       </div>
