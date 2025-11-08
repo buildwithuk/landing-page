@@ -4,7 +4,7 @@ import { FooterComponent } from "./components/footer-component/footer-compose";
 import { HeaderComponent } from "./components/header-component/header-component";
 import type { ICurrentEnv } from "./interfaces/current-env";
 import ExternalService from "./services/external-service";
-import type { ReceiveVisitors } from "./interfaces/receive-visitors";
+import type { IReceiveVisitors } from "./interfaces/receive-visitors";
 import {
   Card,
   CardContent,
@@ -13,8 +13,12 @@ import {
 } from "./components/ui/card";
 import { Skeleton } from "./components/ui/skeleton";
 import type { IFeedbackRequest } from "./interfaces/feedback-request";
+import { useFetchVisitors } from "./hooks/useFetchVisitors.hooks";
 
 export const LandingPageComponent: FC = (): ReactElement => {
+
+  const {data, isSuccess, isError} = useFetchVisitors({});
+
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
     null
   );
@@ -34,7 +38,7 @@ export const LandingPageComponent: FC = (): ReactElement => {
   }
 
   const receiveVisitor = async () => {
-    const response = await ExternalService.ReceiveVisitor<ReceiveVisitors>();
+    const response = await ExternalService.ReceiveVisitor<IReceiveVisitors>();
     setVisitors(response.visitors);
   };
 

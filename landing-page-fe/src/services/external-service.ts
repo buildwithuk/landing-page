@@ -1,3 +1,4 @@
+
 import type { ICurrentEnv } from "../interfaces/current-env";
 import type { IApiResponse } from "../interfaces/http-response";
 import type { IFeedbackRequest } from "@/interfaces/feedback-request";
@@ -6,6 +7,14 @@ import type { IFeedbackRequest } from "@/interfaces/feedback-request";
 class ExternalService {
 
 
+    public static async GetVisitors<T>() : Promise<T> {
+
+        const _GetVisitorsUrl: string = `https://landing-page-production-db37.up.railway.app/visitor`;
+
+        const response: T = await this._SendGetRequest<T>(_GetVisitorsUrl);
+
+        return response;
+    }
 
     public static async GetCurrentEnvironmnet(longitude: number, latitude: number): Promise<ICurrentEnv> {
 

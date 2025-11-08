@@ -1,3 +1,3 @@
-export interface ReceiveVisitors {
+export interface IReceiveVisitors {
     visitors: number
 }
