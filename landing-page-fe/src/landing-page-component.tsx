@@ -25,21 +25,12 @@ export const LandingPageComponent: FC = (): ReactElement => {
   const [currentEnv, setCurrentEnv] = useState<ICurrentEnv>();
 
   useEffect(() => {
-    sendFeedback();
     receiveVisitor();
     getLocation();
   }, []);
 
-  const sendFeedback = async () => {
-    const response = await ExternalService.SaveFeedback<IFeedbackRequest>({
-      createdAt: new Date(),
-      feedback: "You site is so cool",
-      rating: 3,
-    });
-  };
-
   const receiveVisitor = async () => {
-    await ExternalService.ReceiveVisitor<IReceiveVisitors>();
+    await ExternalService.ReceiveVisitor();
   };
 
   const getLocation = () => {

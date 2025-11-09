@@ -14,7 +14,8 @@ import {
   Thermometer,
 } from "lucide-react";
 import { type HeaderProps } from "../../props/header-component-props";
-import type { ReactElement, FC } from "react";
+import type { ReactElement, FC, JSX } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
   // https://www.shadcn.io/button/theme-toggle#preview-button-theme-toggle-variants
@@ -40,23 +41,49 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
     alert("Theme toggled");
   };
 
+  const getWeatherIcon = (): JSX.Element => {
+    if (env) {
+      if (env.isDay) {
+        if (env.condition?.toLowerCase().includes("light rain"))
+          return <CloudRain />;
+        if (env.condition?.toLowerCase().includes("rain"))
+          return <CloudRainWind />;
+        if (env.condition?.toLowerCase().includes("snow")) return <Snowflake />;
+        if (env.condition?.toLowerCase().includes("mist")) return <SunDim />;
+        if (env.condition?.toLowerCase().includes("thund"))
+          return <CloudLightning />;
+        if (env.condition?.toLowerCase().includes("partly cloudy"))
+          return <Cloud />;
+        if (env.condition?.toLowerCase().includes("overcast"))
+          return <Cloudy />;
+        if (env.condition?.toLocaleLowerCase().includes("clear"))
+          return <Sun />;
+      } else {
+        if (env.condition?.toLowerCase().includes("light rain"))
+          return <CloudRain />;
+        if (env.condition?.toLowerCase().includes("rain"))
+          return <CloudRainWind />;
+        if (env.condition?.toLowerCase().includes("snow")) return <Snowflake />;
+        if (env.condition?.toLowerCase().includes("mist")) return <SunDim />;
+        if (env.condition?.toLowerCase().includes("thund"))
+          return <CloudLightning />;
+        if (env.condition?.toLowerCase().includes("partly cloudy"))
+          return <Cloud />;
+        if (env.condition?.toLowerCase().includes("overcast"))
+          return <Cloudy />;
+        if (env.condition?.toLocaleLowerCase().includes("clear"))
+          return <MoonStar />;
+      }
+    } else {
+      return <Skeleton />;
+    }
+    return <Skeleton />;
+  };
+
   return (
     <div className="text-emerald-700 flex flex-row px-10 ">
       <div className="flex flex-row basis-2/3 content-center items-center">
-        <div>
-          {(env.condition?.toLocaleLowerCase().includes("clear") && !!env.isDay) && <Sun />}
-          
-          { (env.condition?.toLocaleLowerCase().includes("clear") &&
-            !env.isDay) && <MoonStar />}
-
-          {env.condition?.toLowerCase().includes("light rain") && <CloudRain />}
-          {env.condition?.toLowerCase().includes("rain") && <CloudRainWind />}
-          {env.condition?.toLowerCase().includes("snow") && <Snowflake />}
-          {env.condition?.toLowerCase().includes("mist") && <SunDim />}
-          {env.condition?.toLowerCase().includes("thund") && <CloudLightning />}
-          {env.condition?.toLowerCase().includes("partly cloudy") && <Cloud />}
-          {env.condition?.toLowerCase().includes("overcast") && <Cloudy />}
-        </div>
+        <div>{getWeatherIcon()}</div>
         <Separator orientation="vertical" className="mx-3" />
         <div>
           <h4 className="font-semibold font-medium  tracking-tight">

@@ -1,4 +1,5 @@
 
+import type { IReceiveVisitors } from "@/interfaces/receive-visitors";
 import type { ICurrentEnv } from "../interfaces/current-env";
 import type { IApiResponse } from "../interfaces/http-response";
 import type { IFeedbackRequest } from "@/interfaces/feedback-request";
@@ -24,43 +25,32 @@ class ExternalService {
 
     }
 
-    public static async SaveFeedback<T>(feedbackRequest: IFeedbackRequest): Promise<T> {
-
-        const _SaveFeedbackUrl: string = `https://landing-page-production-db37.up.railway.app/feedback`;
-
-        const response = await fetch(_SaveFeedbackUrl, { headers: ExternalService._GetHeaders(), method: "POST", body: JSON.stringify(feedbackRequest) });
-
-        if (response.ok) {
-
-            let apiResponse: IApiResponse = await response.json();
-            let feedbackResponse = apiResponse.data as T;
-
-            return feedbackResponse;
-
-        } else {
-            throw new Error("Some error occured");
-        }
-    }
-
     private static _GetHeaders(): HeadersInit {
         return {
             "Content-type": "application/json"
         }
     }
 
-
-    public static async ReceiveVisitor<T>(): Promise<T> {
+    public static async ReceiveVisitor(): Promise<IReceiveVisitors> {
 
         const _ReceiveVisitor: string = `https://landing-page-production-db37.up.railway.app/visitor/receive-visitor`;
+        return await this._SendPostRequest<IReceiveVisitors, any>(_ReceiveVisitor, null)
 
-        const response = await fetch(_ReceiveVisitor, { method: "POST" });
+    }
+
+    public static async _SendPostRequest<T, K>(url: string, reqBody: K) {
+
+        const response = await fetch(url, {
+            method: "POST", headers: ExternalService._GetHeaders(),
+            body: reqBody != null ?  JSON.stringify(reqBody) : null
+        });
 
         if (response.ok) {
 
             let apiResponse: IApiResponse = await response.json();
-            let currentEnvData = apiResponse.data as T;
+            let responseData = apiResponse.data as T;
 
-            return currentEnvData;
+            return responseData;
 
         } else {
             throw new Error("Some error occured");

@@ -12,13 +12,7 @@ export class VisitorService {
         let documents = await Visitors.find();
 
         if (documents && documents.length == 1) {
-
-            let document = documents[0];
-
-            document!.visitorsReceived++;
-            document!.lastVisited = new Date();
-
-            return await document!.visitorsReceived;
+            return await documents[0]!.visitorsReceived;
 
         } else if (documents.length == 0) {
 
