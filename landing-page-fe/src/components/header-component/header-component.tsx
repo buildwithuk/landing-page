@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggleButton } from "@/components/ui/shadcn-io/theme-toggle-button";
-import { useTheme } from 'next-themes'
+import { useTheme } from "next-themes";
 import { Toggle } from "@radix-ui/react-toggle";
 import {
   Cloud,
@@ -16,22 +16,17 @@ import {
   Thermometer,
 } from "lucide-react";
 import { type HeaderProps } from "../../props/header-component-props";
-import { type ReactElement, type FC, type JSX, useCallback } from "react";
+import { type ReactElement, type FC, type JSX, useEffect } from "react";
 import { Skeleton } from "../ui/skeleton";
 
 export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
-  const currentTheme = !env.isDay ? "light" : "dark";
- const { theme, setTheme } = useTheme()
+  const currentTheme = env.isDay ? "light" : "dark";
+  const { theme, setTheme } = useTheme();
 
-  const handleThemeToggle = () => {
+  useEffect(() => {
+    setTheme(currentTheme);
+  }, []);
 
-    if (theme === 'dark')
-      setTheme('light')
-    else
-      setTheme('dark')
-
-  }
-  
   const getName = (): string => {
     let name = "";
     if (env) {
@@ -48,12 +43,10 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
     return name;
   };
 
-
   const getWeatherIcon = (): JSX.Element => {
     if (env) {
       if (env.isDay) {
-        if (env.condition?.toLowerCase() == 'sunny')
-          return <SunMedium />
+        if (env.condition?.toLowerCase() == "sunny") return <SunMedium />;
         if (env.condition?.toLowerCase().includes("light rain"))
           return <CloudRain />;
         if (env.condition?.toLowerCase().includes("rain"))
@@ -104,9 +97,8 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
       <div className="content-around flex flex-row-reverse basis-1/3  content-center items-center">
         <ThemeToggleButton
           theme={currentTheme}
-          onClick={handleThemeToggle}
-          variant="circle"
-          start="center"
+          variant="circle-blur"
+          start="top-right"
         />
 
         <Separator orientation="vertical" className="mx-3" />
