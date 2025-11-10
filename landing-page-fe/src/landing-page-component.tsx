@@ -57,8 +57,8 @@ export const LandingPageComponent: FC = (): ReactElement => {
   return (
     <>
     
-      <div className="tracking-wider h-screen w-screen landing-page-light-bg flex justify-center items-center flex-column">
-        <Card className="w-6xl justify-center opacity-70">
+      <div className="tracking-wider h-screen w-screen flex justify-center items-center flex-column">
+        <Card className="w-7xl justify-center opacity-70">
           <CardHeader>
             {!currentEnv && <Skeleton className="w-auto" />}
             {currentEnv && (

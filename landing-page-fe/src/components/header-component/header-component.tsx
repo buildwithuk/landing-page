@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggleButton } from "@/components/ui/shadcn-io/theme-toggle-button";
+import { useTheme } from 'next-themes'
 import { Toggle } from "@radix-ui/react-toggle";
 import {
   Cloud,
@@ -11,16 +12,37 @@ import {
   Snowflake,
   Sun,
   SunDim,
+  SunMedium,
   Thermometer,
 } from "lucide-react";
 import { type HeaderProps } from "../../props/header-component-props";
-import type { ReactElement, FC, JSX } from "react";
+import { type ReactElement, type FC, type JSX, useCallback } from "react";
 import { Skeleton } from "../ui/skeleton";
 
 export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
-  // https://www.shadcn.io/button/theme-toggle#preview-button-theme-toggle-variants
-  const currentTheme = "light";
+  // https://www.shadcn.io/button/theme-toggle#preview-button-theme-togg le-variants
+  const currentTheme = env.isDay ? "light" : "dark";
+ const { theme, setTheme } = useTheme()
 
+  const handleThemeToggle = () => {
+
+    console.log(env.isDay)
+
+    if (theme === 'dark')
+      setTheme('light')
+    else
+      setTheme('dark')
+
+    // if (env.isDay) {
+    //   setTheme("dark")
+    // } else {
+    //   setTheme("light")
+
+    // }
+
+    console.log(theme)
+  }
+  
   const getName = (): string => {
     let name = "";
     if (env) {
@@ -37,13 +59,12 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
     return name;
   };
 
-  const handleThemeToggle = () => {
-    alert("Theme toggled");
-  };
 
   const getWeatherIcon = (): JSX.Element => {
     if (env) {
       if (env.isDay) {
+        if (env.condition?.toLowerCase() == 'sunny')
+          return <SunMedium />
         if (env.condition?.toLowerCase().includes("light rain"))
           return <CloudRain />;
         if (env.condition?.toLowerCase().includes("rain"))
@@ -81,12 +102,12 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
   };
 
   return (
-    <div className="text-emerald-700 flex flex-row px-10 ">
+    <div className="flex flex-row px-10 ">
       <div className="flex flex-row basis-2/3 content-center items-center">
         <div>{getWeatherIcon()}</div>
         <Separator orientation="vertical" className="mx-3" />
         <div>
-          <h4 className="font-semibold font-medium  tracking-tight">
+          <h4 className="font-semibold font-medium tracking-tight">
             {getName()}
           </h4>
         </div>

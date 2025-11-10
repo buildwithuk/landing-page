@@ -8,7 +8,7 @@ export const FooterComponent: FC = (): ReactElement => {
       <div className="flex mr-3 content-center items-center">
         <SquareCode />
       </div>
-      <div className="flex text-blue-600">
+      <div className="flex">
         <p>
           <a href="https://github.com/buildwithuk/landing-page/tree/main/landing-page-fe">
             https://github.com/buildwithuk

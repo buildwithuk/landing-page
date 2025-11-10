@@ -74,11 +74,16 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  --background-image-light: url("./assets/clouds-161581_1920.png");
+  --background-image-dark: url("./assets/forest-5375005.jpg");
+  --background-size: cover;
+}
+
+.light {
+  --background-image: var(--background-image-light);
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.208 0.042 265.755);
   --card-foreground: oklch(0.984 0.003 247.858);
   --popover: oklch(0.208 0.042 265.755);
@@ -108,6 +113,13 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background-image: var(--background-image-dark);
+  --background-size: cover;
+}
+
+body {
+    background-image: var(--background-image);
+    background-size: cover;
 }
 
 @layer base {
@@ -117,10 +129,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-.landing-page-light-bg {
-  background-image: url("./assets/clouds-161581_1920.png");
-  
-  background-size: cover;
 }
