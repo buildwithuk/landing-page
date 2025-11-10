@@ -6,6 +6,7 @@ import {
   CloudLightning,
   CloudRain,
   CloudRainWind,
+  CloudSunRain,
   Cloudy,
   MoonStar,
   Snowflake,
@@ -95,9 +96,9 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
           return <MoonStar />;
       }
     } else {
-      return <Skeleton />;
+      return <CloudSunRain />;
     }
-    return <Skeleton />;
+    return <CloudSunRain />;
   };
 
   return (
