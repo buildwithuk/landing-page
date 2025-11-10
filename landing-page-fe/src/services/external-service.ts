@@ -7,6 +7,13 @@ import type { IFeedbackRequest } from "@/interfaces/feedback-request";
 
 class ExternalService {
 
+    public static async SubmitFeedback(request: IFeedbackRequest): Promise<IFeedbackRequest> {
+
+        const _SubmitFeedback: string = `https://landing-page-production-db37.up.railway.app/feedback`;
+        return await this._SendPostRequest<IFeedbackRequest, IFeedbackRequest>(_SubmitFeedback, request)
+
+    }
+
 
     public static async GetVisitors<T>(): Promise<T> {
 
@@ -42,7 +49,7 @@ class ExternalService {
 
         const response = await fetch(url, {
             method: "POST", headers: ExternalService._GetHeaders(),
-            body: reqBody != null ?  JSON.stringify(reqBody) : null
+            body: reqBody != null ? JSON.stringify(reqBody) : null
         });
 
         if (response.ok) {

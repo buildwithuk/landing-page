@@ -1,7 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggleButton } from "@/components/ui/shadcn-io/theme-toggle-button";
 import { useTheme } from "next-themes";
-import { Toggle } from "@radix-ui/react-toggle";
 import {
   Cloud,
   CloudLightning,
@@ -16,12 +15,30 @@ import {
   Thermometer,
 } from "lucide-react";
 import { type HeaderProps } from "../../props/header-component-props";
-import { type ReactElement, type FC, type JSX, useEffect } from "react";
+import {
+  type ReactElement,
+  type FC,
+  type JSX,
+  useEffect,
+  useState,
+} from "react";
 import { Skeleton } from "../ui/skeleton";
+import { Button } from "../ui/button";
 
 export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
   const currentTheme = env.isDay ? "light" : "dark";
   const { theme, setTheme } = useTheme();
+
+  type TemperatureScale = "Celsius" | "Fahrenheit";
+  const [temperatureScale, setTemperatureScale] =
+    useState<TemperatureScale>("Celsius");
+  const switchTemperature = () => {
+    if (temperatureScale === "Celsius") {
+      setTemperatureScale("Fahrenheit");
+    } else {
+      setTemperatureScale("Celsius");
+    }
+  };
 
   useEffect(() => {
     setTheme(currentTheme);
@@ -96,6 +113,7 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
       </div>
       <div className="content-around flex flex-row-reverse basis-1/3  content-center items-center">
         <ThemeToggleButton
+          className="cursor-not-allowed"
           theme={currentTheme}
           variant="circle-blur"
           start="top-right"
@@ -103,12 +121,21 @@ export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
 
         <Separator orientation="vertical" className="mx-3" />
         <div className="content-around flex flex-row-reverse content-center items-center">
-          <Toggle>
+          <Button
+            variant="outline"
+            onClick={switchTemperature}
+            className="cursor-pointer "
+          >
             <Thermometer />
-          </Toggle>
+          </Button>
         </div>
         <div className="content-around flex flex-row-reverse mr-4  content-center items-center">
-          <h5> {env.temperatureInC} &deg;C</h5>
+          {temperatureScale == "Celsius" && (
+            <h5> {env.temperatureInC} &deg;C</h5>
+          )}
+          {temperatureScale == "Fahrenheit" && (
+            <h5> {env.temperatureInF} &deg;F</h5>
+          )}
         </div>
       </div>
     </div>

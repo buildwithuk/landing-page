@@ -1,26 +1,22 @@
-import { MessagesSquare, SquareCode } from "lucide-react";
+import { MessagesSquare, SquareCode, Thermometer } from "lucide-react";
 import type { ReactElement, FC } from "react";
 import { Button } from "../ui/button";
+import { FeedbackDialog } from "../dialog/feedback-dialog";
 
 export const FooterComponent: FC = (): ReactElement => {
   return (
-    <footer className="mt-2 flex flex-row content-center items-center">
-      <div className="flex mr-3 content-center items-center">
-        <SquareCode />
-      </div>
-      <div className="flex">
-        <p>
-          <a href="https://github.com/buildwithuk/landing-page/tree/main/landing-page-fe">
-            https://github.com/buildwithuk
-          </a>
-        </p>
-      </div>
-
-      <div>
-        <Button variant="outline" size="icon" className="rounded-full mx-5">
-          <MessagesSquare />
-        </Button>
-      </div>
-    </footer>
+    <footer className="flex justify-between items-center">
+  <div>
+    <FeedbackDialog />
+  </div>
+  <div>
+    <Button variant="link">
+      <SquareCode />
+      <a href="https://github.com/buildwithuk/landing-page/tree/main/landing-page-fe">
+        https://github.com/buildwithuk
+      </a>
+    </Button>
+  </div>
+</footer>
   );
 };

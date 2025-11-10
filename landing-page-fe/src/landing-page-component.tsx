@@ -82,10 +82,10 @@ export const LandingPageComponent: FC = (): ReactElement => {
             {data && (
               <ContentComponent visitors={data?.visitors}></ContentComponent>
             )}
+              {data && currentEnv && <FooterComponent />}
           </CardContent>
-          <CardFooter className="flex-col gap-2">
-            {data && currentEnv && <FooterComponent />}
-          </CardFooter>
+          
+          
         </Card>
       </div>
     </>
