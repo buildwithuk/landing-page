@@ -20,27 +20,16 @@ import { type ReactElement, type FC, type JSX, useCallback } from "react";
 import { Skeleton } from "../ui/skeleton";
 
 export const HeaderComponent: FC<HeaderProps> = ({ env }): ReactElement => {
-  // https://www.shadcn.io/button/theme-toggle#preview-button-theme-togg le-variants
-  const currentTheme = env.isDay ? "light" : "dark";
+  const currentTheme = !env.isDay ? "light" : "dark";
  const { theme, setTheme } = useTheme()
 
   const handleThemeToggle = () => {
-
-    console.log(env.isDay)
 
     if (theme === 'dark')
       setTheme('light')
     else
       setTheme('dark')
 
-    // if (env.isDay) {
-    //   setTheme("dark")
-    // } else {
-    //   setTheme("light")
-
-    // }
-
-    console.log(theme)
   }
   
   const getName = (): string => {
