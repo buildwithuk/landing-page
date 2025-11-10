@@ -13,7 +13,7 @@ import { RatingComponent } from "../rating-component/rating-component";
 
 export const FeedbackDialog = () => {
   const [enteredFeedback, setEnteredFeedback] = useState<string>("");
-  const [isDialogOpen, setIsDialogOpen] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const [rating, setRating] = useState(0);
 
