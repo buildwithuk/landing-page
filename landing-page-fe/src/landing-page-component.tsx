@@ -16,7 +16,7 @@ import type { IFeedbackRequest } from "./interfaces/feedback-request";
 import { useFetchVisitors } from "./hooks/useFetchVisitors.hooks";
 
 export const LandingPageComponent: FC = (): ReactElement => {
-  const { data, isSuccess, isError } = useFetchVisitors({});
+  const { data} = useFetchVisitors({});
 
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(
     null
