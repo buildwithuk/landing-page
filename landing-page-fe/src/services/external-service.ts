@@ -7,7 +7,7 @@ class ExternalService {
   public static async SubmitFeedback(
     request: IFeedbackRequest,
   ): Promise<IFeedbackRequest> {
-    const _SubmitFeedback: string = `http://landing-page-production-db37.up.railway.app/feedback`;
+    const _SubmitFeedback: string = `https://landing-page-production-db37.up.railway.app/feedback`;
     const response = await this._SendPostRequest<
       IFeedbackRequest,
       IFeedbackRequest
@@ -17,7 +17,7 @@ class ExternalService {
   }
 
   public static async GetVisitors<T>(): Promise<T> {
-    const _GetVisitorsUrl: string = `http://landing-page-production-db37.up.railway.app/visitor`;
+    const _GetVisitorsUrl: string = `https://landing-page-production-db37.up.railway.app/visitor`;
     const response: T =
       await ExternalService._SendGetRequest<T>(_GetVisitorsUrl);
     console.log(response);
@@ -28,7 +28,7 @@ class ExternalService {
     longitude: number,
     latitude: number,
   ): Promise<ICurrentEnv> {
-    const _GetCurrentEnvURL: string = `http://landing-page-production-db37.up.railway.app/current-env/${longitude}/${latitude}`;
+    const _GetCurrentEnvURL: string = `https://landing-page-production-db37.up.railway.app/current-env/${longitude}/${latitude}`;
 
     const response: ICurrentEnv =
       await ExternalService._SendGetRequest<ICurrentEnv>(_GetCurrentEnvURL);
@@ -43,7 +43,7 @@ class ExternalService {
   }
 
   public static async ReceiveVisitor(): Promise<IReceiveVisitors> {
-    const _ReceiveVisitor: string = `http://landing-page-production-db37.up.railway.app/visitor/receive-visitor`;
+    const _ReceiveVisitor: string = `https://landing-page-production-db37.up.railway.app/visitor/receive-visitor`;
     return await this._SendPostRequest<IReceiveVisitors, any>(
       _ReceiveVisitor,
       null,
